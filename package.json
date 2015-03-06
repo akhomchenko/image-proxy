@@ -33,7 +33,8 @@
     "gulp-less": "~3.0.1"
   },
   "dependencies": {
-    "react": "~0.12.2",
-    "bootstrap": "~3.3.2"
+    "react": "~0.13.0-rc2",
+    "bootstrap": "~3.3.2",
+    "immutable": "~3.6.2"
   }
 }
