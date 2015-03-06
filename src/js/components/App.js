@@ -4,13 +4,20 @@ import AddPictureForm from './AddPictureForm';
 
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin],
+
+  getInitialState() {
+    return {
+      image: null
+    }
+  },
+
   render() {
     return (
       <div>
         <div className="page-header">
         <AddPictureForm/>
       </div>
-      <Picture url='http://placehold.it/400x400'/>
+      <Picture image={this.state.image}/>
       </div>
     );
   }
