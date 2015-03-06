@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import {PicturesActions} from '../actions';
 
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin, React.addons.LinkedStateMixin],
@@ -11,6 +12,7 @@ export default React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
+    PicturesActions.add(this.state.imageUrl);
   },
 
   render() {
