@@ -16,8 +16,14 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      show: !!this.props.image
+      show: this._isNone(this.props.image)
     }
+  },
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      show: this._isNone(newProps.image)
+    })
   },
 
   render() {
@@ -32,5 +38,9 @@ export default React.createClass({
 
   _howTo() {
     return <p className="lead">Nothing to show...</p>;
+  },
+
+  _isNone(obj) { // TODO(ak): use some helper libraries
+    return !!obj;
   }
 });
