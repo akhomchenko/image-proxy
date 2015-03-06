@@ -1,10 +1,13 @@
-/** @jsx React.DOM */
-
 import React from 'react/addons';
+import AddPictureForm from './AddPictureForm';
 
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin],
   render() {
-    return false;
+    return (
+      <div className="page-header">
+        <AddPictureForm/>
+      </div>
+    );
   }
 });
