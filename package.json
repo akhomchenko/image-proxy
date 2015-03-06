@@ -35,6 +35,7 @@
   "dependencies": {
     "react": "~0.13.0-rc2",
     "bootstrap": "~3.3.2",
-    "immutable": "~3.6.2"
+    "immutable": "~3.6.2",
+    "reflux": "~0.2.5"
   }
 }
