@@ -1,3 +1,4 @@
+import is from 'is_js';
 import React from 'react/addons';
 import Immutable from 'immutable';
 
@@ -16,13 +17,13 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      show: this._isNone(this.props.image)
+      show: is.existy(this.props.image)
     }
   },
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      show: this._isNone(newProps.image)
+      show: is.existy(newProps.image)
     })
   },
 
@@ -38,9 +39,5 @@ export default React.createClass({
 
   _howTo() {
     return <p className="lead">Nothing to show...</p>;
-  },
-
-  _isNone(obj) { // TODO(ak): use some helper libraries
-    return !!obj;
   }
 });
