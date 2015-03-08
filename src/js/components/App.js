@@ -7,12 +7,6 @@ import PicturesStore from '../stores/pictures-store';
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin, Reflux.connect(PicturesStore, 'picture')],
 
-  getInitialState() {
-    return {
-      picture: null
-    };
-  },
-
   render() {
     return (
       <div>
