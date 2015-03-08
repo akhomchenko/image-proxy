@@ -7,6 +7,9 @@ const add = (url) => new Promise((resolve, reject) => {
       if (err) {
         reject(err);
       }
+      if (res.error) {
+        reject(res);
+      }
       resolve(res.body);
     });
 });
