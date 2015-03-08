@@ -12,19 +12,19 @@ export default React.createClass({
   getDefaultProps() {
     return {
       image: null
-    }
+    };
   },
 
   getInitialState() {
     return {
       show: is.existy(this.props.image)
-    }
+    };
   },
 
   componentWillReceiveProps(newProps) {
     this.setState({
       show: is.existy(newProps.image)
-    })
+    });
   },
 
   render() {
@@ -33,7 +33,7 @@ export default React.createClass({
 
   _image() {
     return <img alt="Loaded image" className="img-responsive center"
-      src={this.props.image.url}
+      src={this.props.image.base64}
     />;
   },
 

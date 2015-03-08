@@ -10,7 +10,7 @@ export default React.createClass({
   getInitialState() {
     return {
       picture: null
-    }
+    };
   },
 
   render() {
