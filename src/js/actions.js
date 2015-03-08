@@ -1,3 +1,10 @@
 import Reflux from 'reflux';
+import {add as addPicture} from './api/pictures';
 
-export const PicturesActions = Reflux.createActions(['add']);
+const PicturesActions = Reflux.createActions({
+  add: {asyncResult: true}
+});
+
+PicturesActions.add.listenAndPromise(addPicture);
+
+export {PicturesActions};

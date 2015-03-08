@@ -5,7 +5,11 @@ import Picture from '../models/picture';
 export default Reflux.createStore({
   listenables: [PicturesActions],
 
-  onAdd(url) {
-    this.trigger(new Picture({url}));
+  onAddCompleted(result) {
+    this.trigger(new Picture(result));
+  },
+
+  onAddFailed() {
+
   }
 });
