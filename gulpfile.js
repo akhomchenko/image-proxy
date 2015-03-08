@@ -21,7 +21,7 @@ var stylish = require('jshint-stylish');
 var minifycss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
-var webserver = require('gulp-server-livereload');
+var webserver = require('gulp-webserver');
 
 
 var production = !!argv.production;
@@ -152,7 +152,10 @@ gulp.task('serve', ['watch'], function () {
   gulp.src('dist')
     .pipe(webserver({
       livereload: true,
-      open: true
+      open: true,
+      proxies: [
+        {source: '/base64', target: 'http://localhost:3000/base64'}
+      ]
     }));
 });
 
