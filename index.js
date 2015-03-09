@@ -1,9 +1,12 @@
 var express = require('express');
+var compression = require('compression');
 var request = require('request').defaults({encoding: null});
 
 var IMAGE_CONTENT_TYPE_REGEXP = /image\/.*/;
 
 var app = express();
+
+app.use(compression());
 
 app.use(express.static(__dirname + '/public'));
 

@@ -174,7 +174,8 @@ function getNPMPackageIds() {
   } catch (e) {
   }
 
-  var packages = _.without(_.keys(manifest.dependencies) || [], 'bootstrap', 'express', 'request');
+  var packages = _.without(_.keys(manifest.dependencies) || [],
+    'bootstrap', 'express', 'request', 'compression');
   packages.push('react/addons');
   return packages;
 }
