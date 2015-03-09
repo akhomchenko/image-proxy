@@ -1,10 +1,9 @@
-/* global require, process */
-
 var _ = require('lodash');
 var del = require('del');
 var to5 = require('babelify');
 var resolve = require('resolve');
 var argv = require('yargs').argv;
+var path = require('path');
 var watchify = require('watchify');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
@@ -26,6 +25,9 @@ var webserver = require('gulp-webserver');
 
 var production = !!argv.production;
 var development = !production;
+var release = !!argv.release;
+var DEST_DIR = release ? './public' : './dist';
+
 process.env.NODE_ENV = production ? 'production' : 'development';
 
 var paths = {
@@ -36,15 +38,15 @@ var paths = {
       app: 'app.js',
       vendor: 'vendor.js'
     },
-    dest: './dist/js'
+    dest: path.join(DEST_DIR, 'js')
   },
   html: {
     index: './src/index.html',
-    dest: './dist'
+    dest: DEST_DIR
   },
   less: {
     src: './src/less/app.less',
-    dest: './dist/css',
+    dest: path.join(DEST_DIR, 'css'),
     libPaths: ['./node_modules/bootstrap/less']
   }
 };
@@ -75,14 +77,14 @@ function buildJs(b, destination) {
 
 function buildAppJs(b) {
   b.add(paths.js.main);
-  getNPMPackageIds().forEach(function(id) {
+  getNPMPackageIds().forEach(function (id) {
     b.external(id);
   });
   return buildJs(b, paths.js.name.app);
 }
 
 function buildVendorJs(b) {
-  getNPMPackageIds().forEach(function(id) {
+  getNPMPackageIds().forEach(function (id) {
     b.require(resolve.sync(id), {expose: id});
   });
   return buildJs(b, paths.js.name.vendor);
@@ -107,7 +109,7 @@ gulp.task('js:app:watch', ['js:lint'], function () {
   return buildAppJs(b);
 });
 
-gulp.task('js:vendor:build', function () {
+gulp.task('js:vendor:build', ['clean'], function () {
   var b = bundle(false);
   return buildVendorJs(b);
 });
@@ -119,16 +121,16 @@ gulp.task('js:lint', function () {
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('html:copy', function () {
+gulp.task('html:copy', ['clean'], function () {
   return gulp.src(paths.html.index)
     .pipe(gulp.dest(paths.html.dest));
 });
 
 gulp.task('clean', function (cb) {
-  del(['./dist/**/*'], cb);
+  del([path.join(DEST_DIR, '**/*')], cb);
 });
 
-gulp.task('less', function () {
+gulp.task('less', ['clean'], function () {
   return gulp.src(paths.less.src)
     .pipe(_if(development, sourcemaps.init()))
     .pipe(less({
@@ -149,12 +151,15 @@ gulp.task('watch', ['clean', 'html:copy', 'less', 'js:vendor:build', 'js:app:wat
 });
 
 gulp.task('serve', ['watch'], function () {
-  gulp.src('dist')
+  gulp.src(DEST_DIR)
     .pipe(webserver({
       livereload: true,
       open: true,
       proxies: [
-        {source: '/base64', target: 'http://localhost:3000/base64'}
+        {
+          source: '/base64',
+          target: 'http://localhost:' + process.env.PORT + '/base64'
+        }
       ]
     }));
 });
@@ -166,9 +171,10 @@ function getNPMPackageIds() {
   var manifest = {};
   try {
     manifest = require('./package.json');
-  } catch (e) {}
+  } catch (e) {
+  }
 
-  var packages = _.without(_.keys(manifest.dependencies) || [], 'bootstrap');
+  var packages = _.without(_.keys(manifest.dependencies) || [], 'bootstrap', 'express', 'request');
   packages.push('react/addons');
   return packages;
 }
