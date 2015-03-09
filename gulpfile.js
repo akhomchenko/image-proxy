@@ -158,7 +158,7 @@ gulp.task('serve', ['watch'], function () {
       proxies: [
         {
           source: '/base64',
-          target: 'http://localhost:' + process.env.PORT + '/base64'
+          target: 'http://localhost:3000/base64'
         }
       ]
     }));

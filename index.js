@@ -10,18 +10,15 @@ app.use(express.static(__dirname + '/public'));
 app.get('/base64', function (req, res) {
   var url = req.query.url;
   if (!url) {
-    res.status(400).json({error: 'Image URL is not provided'});
-    return;
+    return res.status(400).json({error: 'Image URL is not provided'});
   }
   request.get(url, function (error, response, body) {
     if (error) {
-      res.status(400).json({error: 'Failed to fetch image'});
-      return;
+      return res.status(400).json({error: 'Failed to fetch image'});
     }
     var contentType = response.headers["content-type"];
     if (!IMAGE_CONTENT_TYPE_REGEXP.test(contentType)) {
-      res.status(400).json({error: 'Not an image'});
-      return;
+      return res.status(400).json({error: 'Not an image'});
     }
     var data = "data:" + contentType + ";base64," + new Buffer(body).toString('base64');
     res.json({origin: url, base64: data});
