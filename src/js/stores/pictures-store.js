@@ -15,9 +15,5 @@ export default Reflux.createStore({
 
   onAddCompleted(result) {
     this.trigger(new Picture(result));
-  },
-
-  onAddFailed() {
-
   }
 });
