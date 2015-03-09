@@ -25,7 +25,7 @@ export default React.createClass({
   },
 
   onAddFailed(error) {
-    const errorMessage = (error.body || {}).error || 'without any reason';
+    const errorMessage = (error || {}).error || 'without any reason';
     this.setState({errorMessage});
   },
 

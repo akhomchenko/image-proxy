@@ -1,17 +1,14 @@
-import superagent from 'superagent';
+/* global fetch */
+import is from 'is_js';
 
-const add = (url) => new Promise((resolve, reject) => {
-  superagent.get('/base64')
-    .query({url})
-    .end((err, res) => {
-      if (err) {
-        reject(err);
+const add = (url) => new Promise((resolve, reject) =>
+  fetch(`https://image-proxying.herokuapp.com/base64?url=${url}`)
+    .then(res => {
+      if (is.not.within(res.status, 199, 299)) {
+        res.json().then(reject);
+      } else {
+        resolve(res.json());
       }
-      if (res.error) {
-        reject(res);
-      }
-      resolve(res.body);
-    });
-});
+    }));
 
 export {add};
