@@ -32,7 +32,7 @@ export default React.createClass({
   },
 
   _image() {
-    return <img alt="Loaded image" className="img-responsive center"
+    return <img alt="Loaded image" className="img-responsive center-block"
       src={this.props.image.base64}
     />;
   },
