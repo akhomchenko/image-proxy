@@ -26,7 +26,9 @@ var webserver = require('gulp-webserver');
 var production = !!argv.production;
 var development = !production;
 var release = !!argv.release;
+
 var DEST_DIR = release ? './public' : './dist';
+var IGNORED_PACKAGES = ['bootstrap', 'express', 'request', 'compression'];
 
 process.env.NODE_ENV = production ? 'production' : 'development';
 
@@ -174,8 +176,9 @@ function getNPMPackageIds() {
   } catch (e) {
   }
 
-  var packages = _.without(_.keys(manifest.dependencies) || [],
-    'bootstrap', 'express', 'request', 'compression');
+  var packages = _.without.apply(
+    this, [_.keys(manifest.dependencies) || []].concat(IGNORED_PACKAGES)
+  );
   packages.push('react/addons');
   return packages;
 }
