@@ -111,7 +111,7 @@ gulp.task('js:app:watch', ['js:lint'], function () {
   return buildAppJs(b);
 });
 
-gulp.task('js:vendor:build', ['clean'], function () {
+gulp.task('js:vendor:build', function () {
   var b = bundle(false);
   return buildVendorJs(b);
 });
@@ -123,7 +123,7 @@ gulp.task('js:lint', function () {
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('html:copy', ['clean'], function () {
+gulp.task('html:copy', function () {
   return gulp.src(paths.html.index)
     .pipe(gulp.dest(paths.html.dest));
 });
@@ -132,7 +132,7 @@ gulp.task('clean', function (cb) {
   del([path.join(DEST_DIR, '**/*')], cb);
 });
 
-gulp.task('less', ['clean'], function () {
+gulp.task('less', function () {
   return gulp.src(paths.less.src)
     .pipe(_if(development, sourcemaps.init()))
     .pipe(less({
