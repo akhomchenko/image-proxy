@@ -41,7 +41,8 @@ export default React.createClass({
             <input type="submit" value="Load!"
               className="btn btn-lg btn-primary"/>
           </form>
-        </div>{' '}
+        </div>
+        <br/>
       {is.existy(this.state.errorMessage) ?
         <div className="alert alert-danger" role="alert">
           <strong>Failed to request image: {this.state.errorMessage}</strong>
