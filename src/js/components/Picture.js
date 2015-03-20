@@ -28,16 +28,12 @@ export default React.createClass({
   },
 
   render() {
-    return this.state.show ? this._image() : this._howTo();
+    return this.state.show ? this._image() : false;
   },
 
   _image() {
     return <img alt="Loaded image" className="img-responsive center-block"
       src={this.props.picture.base64}
     />;
-  },
-
-  _howTo() {
-    return <p className="lead">Nothing to show...</p>;
   }
 });
