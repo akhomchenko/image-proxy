@@ -6,24 +6,24 @@ export default React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
-    image: React.PropTypes.instanceOf(Immutable.Record)
+    picture: React.PropTypes.instanceOf(Immutable.Record)
   },
 
   getDefaultProps() {
     return {
-      image: null
+      picture: null
     };
   },
 
   getInitialState() {
     return {
-      show: is.existy(this.props.image)
+      show: is.existy(this.props.picture)
     };
   },
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      show: is.existy(newProps.image)
+      show: is.existy(newProps.picture)
     });
   },
 
@@ -33,7 +33,7 @@ export default React.createClass({
 
   _image() {
     return <img alt="Loaded image" className="img-responsive center-block"
-      src={this.props.image.base64}
+      src={this.props.picture.base64}
     />;
   },
 

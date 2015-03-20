@@ -13,7 +13,7 @@ export default React.createClass({
         <div className="page-header">
           <AddPictureForm/>
         </div>
-        <Picture image={this.state.picture}/>
+        <Picture picture={this.state.picture}/>
       </div>
     );
   }
