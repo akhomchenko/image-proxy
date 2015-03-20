@@ -5,15 +5,16 @@ import AddPictureForm from './AddPictureForm';
 import PicturesStore from '../stores/pictures-store';
 
 export default React.createClass({
-  mixins: [React.addons.PureRenderMixin, Reflux.connect(PicturesStore, 'picture')],
+  mixins: [React.addons.PureRenderMixin, Reflux.connect(PicturesStore, 'pictures')],
 
   render() {
+    const picture = this.state.pictures.last();
     return (
       <div>
         <div className="page-header">
           <AddPictureForm/>
         </div>
-        <Picture picture={this.state.picture}/>
+        <Picture picture={picture}/>
       </div>
     );
   }
