@@ -21,7 +21,7 @@ export default React.createClass({
   },
 
   onAddCompleted() {
-    this.setState({errorMessage: null});
+    this.setState({imageUrl: null, errorMessage: null});
   },
 
   onAddFailed(error) {
