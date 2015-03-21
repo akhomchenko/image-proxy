@@ -9,4 +9,4 @@ use `gulp --release --production` when you are ready to deploy
 * Checkout `deploy` branch
 * Merge `master` via `git merge --squash master`
 * Run `gulp --release --production`
-* Commit and push to Heroku
+* Commit and push to Heroku via `git push heroku deploy:master`
