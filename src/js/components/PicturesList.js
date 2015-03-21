@@ -2,10 +2,11 @@ import React from 'react/addons';
 import Immutable from 'immutable';
 import Picture from './Picture';
 
-const {List} = Immutable;
+const {List, is} = Immutable;
+const {PureRenderMixin, classSet: cx} = React.addons;
 
 export default React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [PureRenderMixin],
 
   propTypes: {
     pictures: React.PropTypes.instanceOf(List)
@@ -18,11 +19,11 @@ export default React.createClass({
   },
 
   getInitialState() {
-    return this._getPicturesState(this.props.pictures);
+    return this._getListState(this.props.pictures);
   },
 
   componentWillReceiveProps(newProps) {
-    this.setState(this._getPicturesState(newProps.pictures));
+    this.setState(this._getListState(newProps.pictures));
   },
 
   render() {
@@ -30,10 +31,20 @@ export default React.createClass({
   },
 
   _showPictures() {
+    const pictures = this.props.pictures;
     const picture = this._currentPicture();
+    const previousClasses = cx({disabled: is(picture, pictures.first())});
+    const nextClasses = cx({disabled: is(picture, pictures.last())});
+
     return (
       <div>
         <Picture picture={picture}/>
+        <nav>
+          <ul className="pager">
+            <li className={previousClasses}><a onClick={this._handlePreviousClick}>Previous</a></li>
+            <li className={nextClasses}><a onClick={this._handleNextClick}>Next</a></li>
+          </ul>
+        </nav>
       </div>
     );
   },
@@ -56,10 +67,27 @@ export default React.createClass({
    * @param pictures `Immutable.List`
    * @private
    */
-  _getPicturesState(pictures) {
+  _getListState(pictures) {
     const isList = List.isList(pictures);
-    const show = isList ? !pictures.isEmpty(): false;
+
+    const show = isList ? !pictures.isEmpty() : false;
     const idx = (isList ? pictures.size : 0) - 1; // -1 because size starts with 1
+
     return {show, idx};
+  },
+
+  _handlePreviousClick(e) {
+    e.preventDefault();
+    const prevIdx = this.state.idx;
+    const idx = prevIdx <= 1 ? 0 : prevIdx - 1;
+    this.setState({idx});
+  },
+
+  _handleNextClick(e) {
+    e.preventDefault();
+    const lastAvailableIdx =  this.props.pictures.size - 1;
+    const prevIdx = this.state.idx;
+    const idx = prevIdx >= (lastAvailableIdx) ? lastAvailableIdx : prevIdx + 1;
+    this.setState({idx});
   }
 });
