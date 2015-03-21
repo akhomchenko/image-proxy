@@ -3,5 +3,6 @@
     "browser": true,
     "esnext": true,
     "unused": true,
-    "eqeqeq": true
+    "eqeqeq": true,
+    "newcap": false
 }
