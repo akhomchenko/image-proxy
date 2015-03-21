@@ -1,5 +1,6 @@
 .editorconfig
 .jshintrc
 README.md
+gulpfile.js
 
 src/
