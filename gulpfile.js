@@ -1,38 +1,37 @@
-var _ = require('lodash');
-var del = require('del');
-var to5 = require('babelify');
-var resolve = require('resolve');
-var argv = require('yargs').argv;
-var path = require('path');
-var watchify = require('watchify');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
+const _ = require('lodash');
+const del = require('del');
+const to5 = require('babelify');
+const resolve = require('resolve');
+const argv = require('yargs').argv;
+const path = require('path');
+const watchify = require('watchify');
+const buffer = require('vinyl-buffer');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
 
-var gulp = require('gulp');
-var _if = require('gulp-if');
-var less = require('gulp-less');
-var gutil = require('gulp-util');
-var babel = require('gulp-babel');
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
-var stylish = require('jshint-stylish');
-var minifycss = require('gulp-minify-css');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var webserver = require('gulp-webserver');
+const gulp = require('gulp');
+const _if = require('gulp-if');
+const less = require('gulp-less');
+const gutil = require('gulp-util');
+const babel = require('gulp-babel');
+const jshint = require('gulp-jshint');
+const uglify = require('gulp-uglify');
+const stylish = require('jshint-stylish');
+const minifycss = require('gulp-minify-css');
+const sourcemaps = require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
+const webserver = require('gulp-webserver');
 
+const production = !!argv.production;
+const development = !production;
+const release = !!argv.release;
 
-var production = !!argv.production;
-var development = !production;
-var release = !!argv.release;
-
-var DEST_DIR = release ? './public' : './dist';
-var IGNORED_PACKAGES = ['bootstrap', 'express', 'request', 'compression'];
+const DEST_DIR = release ? './public' : './dist';
+const IGNORED_PACKAGES = ['bootstrap', 'express', 'request', 'compression'];
 
 process.env.NODE_ENV = production ? 'production' : 'development';
 
-var paths = {
+const paths = {
   js: {
     src: './src/js/**/*.js',
     main: './src/js/app.js',
@@ -176,7 +175,7 @@ function getNPMPackageIds() {
   } catch (e) {
   }
 
-  var packages = _.without.apply(
+  const packages = _.without.apply(
     this, [_.keys(manifest.dependencies) || []].concat(IGNORED_PACKAGES)
   );
   packages.push('react/addons');
