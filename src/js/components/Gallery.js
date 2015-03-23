@@ -1,9 +1,10 @@
+import cx from 'classnames';
 import React from 'react/addons';
 import Immutable from 'immutable';
 import Picture from './Picture';
 
 const {List, is} = Immutable;
-const {PureRenderMixin, classSet: cx} = React.addons;
+const {PureRenderMixin} = React.addons;
 
 export default React.createClass({
   mixins: [PureRenderMixin],

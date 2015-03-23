@@ -37,14 +37,15 @@
     "gulp-webserver": "~0.9.0"
   },
   "dependencies": {
-    "react": "~0.13.0-rc2",
     "bootstrap": "~3.3.2",
-    "immutable": "~3.6.2",
-    "reflux": "~0.2.5",
-    "is_js": "~0.7.1",
-    "request": "~2.53.0",
+    "classnames": "^1.2.0",
+    "compression": "~1.4.1",
     "express": "~4.12.2",
-    "whatwg-fetch": "~0.7.0",
-    "compression": "~1.4.1"
+    "immutable": "~3.6.2",
+    "is_js": "~0.7.1",
+    "react": "~0.13.0-rc2",
+    "reflux": "~0.2.5",
+    "request": "~2.53.0",
+    "whatwg-fetch": "~0.7.0"
   }
 }
