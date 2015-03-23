@@ -39,10 +39,12 @@ export default React.createClass({
 
     return (
       <div>
-        <Picture picture={picture}/>
+        <div className="main-picture">
+          <Picture picture={picture}/>
+        </div>
         <nav>
           <ul className="pager">
-            <li className={previousClasses}><a href="#previous" onClick={this._handlePreviousClick}>Previous</a></li>
+            <li className={previousClasses}><a href="#previous" onClick={this._handlePreviousClick}>Prev</a></li>
             {' '}
             <li className={nextClasses}><a href="#next" onClick={this._handleNextClick}>Next</a></li>
           </ul>
