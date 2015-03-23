@@ -1,6 +1,6 @@
 import React from 'react/addons';
 import Reflux from 'reflux';
-import PicturesList from './PicturesList';
+import Gallery from './Gallery';
 import AddPictureForm from './AddPictureForm';
 import PicturesStore from '../stores/pictures-store';
 
@@ -13,7 +13,7 @@ export default React.createClass({
         <div className="page-header">
           <AddPictureForm/>
         </div>
-        <PicturesList pictures={this.state.pictures}/>
+        <Gallery pictures={this.state.pictures}/>
       </div>
     );
   }
