@@ -26,7 +26,7 @@ app.get('/base64', function (req, res) {
       return res.status(400).json({error: 'Not an image'});
     }
     const data = `data:${contentType};base64,${new Buffer(body).toString('base64')}`;
-    res.json({origin: url, base64: data});
+    res.json({url: url, base64: data});
   });
 });
 
