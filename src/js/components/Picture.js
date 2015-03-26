@@ -1,17 +1,27 @@
 import is from 'is_js';
+import cx from 'classnames';
 import React from 'react/addons';
 import Immutable from 'immutable';
+
+const propTypes = React.PropTypes;
 
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin],
 
   propTypes: {
-    picture: React.PropTypes.instanceOf(Immutable.Record)
+    picture: propTypes.instanceOf(Immutable.Record),
+    classes: propTypes.oneOfType([
+      propTypes.string,
+      propTypes.object,
+      propTypes.arrayOf(propTypes.string),
+      propTypes.arrayOf(propTypes.object)
+    ])
   },
 
   getDefaultProps() {
     return {
-      picture: null
+      picture: null,
+      classes: 'img-responsive'
     };
   },
 
@@ -32,8 +42,9 @@ export default React.createClass({
   },
 
   _image() {
-    return <img alt="Loaded image" className="img-responsive center-block"
-      src={this.props.picture.base64}
-    />;
+    const imgClasses = cx(this.props.classes);
+    return (
+      <img alt="Loaded image" className={imgClasses} src={this.props.picture.base64}/>
+    );
   }
 });
