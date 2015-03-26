@@ -2,6 +2,7 @@ import cx from 'classnames';
 import React from 'react/addons';
 import Immutable from 'immutable';
 import Picture from './Picture';
+import Thumbnails from './Thumbnails';
 
 const {List, is} = Immutable;
 const {PureRenderMixin} = React.addons;
@@ -47,6 +48,8 @@ export default React.createClass({
             <li className={nextClasses}><a href="#next" onClick={this._handleNextClick}>Next</a></li>
           </ul>
         </nav>
+        <hr/>
+        <Thumbnails pictures={pictures} current={picture}/>
       </div>
     );
   },
