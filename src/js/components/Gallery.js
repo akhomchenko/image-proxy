@@ -10,7 +10,7 @@ export default React.createClass({
   mixins: [PureRenderMixin],
 
   propTypes: {
-    pictures: React.PropTypes.instanceOf(List)
+    pictures: React.PropTypes.instanceOf(List).isRequired
   },
 
   getDefaultProps() {
@@ -39,9 +39,7 @@ export default React.createClass({
 
     return (
       <div>
-        <div className="main-picture">
-          <Picture picture={picture}/>
-        </div>
+        <Picture picture={picture} classes='img-responsive center-block main-picture'/>
         <nav>
           <ul className="pager">
             <li className={previousClasses}><a href="#previous" onClick={this._handlePreviousClick}>Prev</a></li>
