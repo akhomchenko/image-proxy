@@ -1,3 +1,5 @@
+require('babel/register');
+
 const _ = require('lodash');
 const del = require('del');
 const to5 = require('babelify');
@@ -14,6 +16,7 @@ const _if = require('gulp-if');
 const less = require('gulp-less');
 const gutil = require('gulp-util');
 const babel = require('gulp-babel');
+const mocha = require('gulp-mocha');
 const jshint = require('gulp-jshint');
 const uglify = require('gulp-uglify');
 const stylish = require('jshint-stylish');
@@ -39,6 +42,7 @@ const paths = {
       app: 'app.js',
       vendor: 'vendor.js'
     },
+    tests: './test/*.js',
     dest: path.join(DEST_DIR, 'js')
   },
   html: {
@@ -110,13 +114,21 @@ gulp.task('js:app:watch', ['js:lint'], function () {
   return buildAppJs(b);
 });
 
+gulp.task('js:app:test', ['js:lint'], function () {
+  return gulp.src(paths.js.tests, {read: false})
+    .pipe(mocha())
+    .on('error', function() {
+      this.emit('end');
+    });
+});
+
 gulp.task('js:vendor:build', function () {
   var b = bundle(false);
   return buildVendorJs(b);
 });
 
 gulp.task('js:lint', function () {
-  return gulp.src(paths.js.src)
+  return gulp.src([paths.js.src, paths.js.tests])
     .pipe(babel())
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
@@ -143,11 +155,14 @@ gulp.task('less', function () {
     .pipe(gulp.dest(paths.less.dest));
 });
 
-gulp.task('build', ['clean', 'html:copy', 'less', 'js:vendor:build', 'js:app:build']);
+gulp.task('build', ['clean', 'html:copy', 'less',
+  'js:vendor:build', 'js:app:build', 'js:app:test']);
 
-gulp.task('watch', ['clean', 'html:copy', 'less', 'js:vendor:build', 'js:app:watch'], function () {
+gulp.task('watch', ['clean', 'html:copy', 'less',
+  'js:vendor:build', 'js:app:watch', 'js:app:test'], function () {
   gulp.watch(paths.html.index, ['html:copy']);
-  gulp.watch(paths.js.src, ['js:lint']);
+  gulp.watch([paths.js.src, paths.js.tests], ['js:lint']);
+  gulp.watch(paths.js.tests, ['js:app:test']);
   gulp.watch(paths.less.src, ['less']);
 });
 

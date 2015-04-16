@@ -4,5 +4,6 @@
     "esnext": true,
     "unused": true,
     "eqeqeq": true,
-    "newcap": false
+    "newcap": false,
+    "mocha": true
 }
