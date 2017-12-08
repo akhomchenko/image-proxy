@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "iojs": ">=1.x"
+    "node": "8.x"
   },
   "author": "",
   "license": "MIT",
